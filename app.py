@@ -2,14 +2,13 @@ from flask import Flask, render_template, request, Response, stream_with_context
 from openai import OpenAI
 import chromadb
 import json
-import keys
 
 app = Flask(__name__)
 
 # Initialize ChromaDB and OpenAI
 chroma_client = chromadb.Client()
 collection = chroma_client.create_collection(name="resume_data", get_or_create=True)
-openai_client = OpenAI(api_key=keys.OPENAI_API_KEY)
+openai_client = OpenAI(api_key='jkj')
 
 # Read and add documents to ChromaDB
 import os

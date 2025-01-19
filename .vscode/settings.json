@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/e79e2ddd-6277-4171-ada6-73e4f6ae94a4/resourceGroups/appsvc_linux_centralus_basic/providers/Microsoft.Web/sites/abhinav-portfolio",
+    "appService.deploySubpath": "."
+}

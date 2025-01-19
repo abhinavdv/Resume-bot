@@ -1,0 +1,71 @@
+﻿Name: Abhinav Duvvuri
+
+Location: Seattle, WA 98105
+
+Phone: 4255425032
+
+Email: dvabhinav31@gmail.com
+
+
+WORK EXPERIENCE
+Student software developer, Capstone Project sponsored by Meta, Seattle, WA                       
+Oct 2024 - Present (Will conclude in March 2025)
+Work: 
+* Developing a framework for generating synthetic training data for LLM training.
+* Ensuring privacy preservation in the generated techniques by fine-tuning a pre-trained LLM with differential privacy using PyTorch.
+* Leading the team technically, key providing guidance in technical implementation and design.
+* Read numerous research papers and implemented them for this use case.
+
+AI Engineer Intern, SLB, Houston, TX (Formerly Schlumberger)
+Jun 2024 - Present
+* Implementing enterprise AI solutions by integrating multi-agent AI into the company's infrastructure and developing reusable AI components for enterprise-wide use with langgraph  and azure AI(OpenAI APIs).
+* Exploring Deep Learning and Knowledge Graphs to improve task routing to Mixture of Expert style agents for LLM inference.
+* Developed a RAG-based AI-copilot to address documentation-related queries and incorporated agents for real-time API calls and database queries using Mongo VectorDB. Used kubernetes and Docker to containerize apps.
+* Researched and promoted AI techniques within the organization, including assisting the team in understanding state-of-the-art agentic implementation techniques and evaluating AI monitoring tools.
+* Avid reader and promoter of latest research in the space within the organisation.
+
+Software Developer, SLB, Coimbatore, India (Formerly Schlumberger)
+Aug 2021 - Aug 2023
+
+* Spearheaded 6 ServiceNow projects to optimize SLB's digital portfolio, while developing data pipelines, visualizations, and integrations. Developed REST APIs, 
+* Successfully applied Agile methodology, collaborated with stakeholders, and mentored a team of 5 to ensure high-quality results.
+ Research and Development Intern, AppViewX
+* Contributed to AppViewX's ADC+ product, a comprehensive solution for streamlined load balancer management. Assisted in data ingestion and development of real-time dashboards to visualize load balancer data using Java and spring boot.
+
+EDUCATION
+University Of Washington, Seattle (GPA: 3.92/4.0)        
+2023-2025 -> I graduate in March 2025, but am available to work right away full time.
+Masters in Data Science
+Coursework: Applied Statistics, Probability, Data Visualization, Statistical Machine Learning, Explainable AI(XAI)
+  
+Amrita Vishwa Vidyapeetham, Kollam, India (GPA: 3.75/4.0)        2017 - 2021
+B. Tech in Computer Science with Distinction
+Coursework: Machine Learning, Data Structures and Algorithms, Software development, Database management systems
+
+TECHNICAL SKILLS
+Tools:Object Oriented(OOP) Python, SQL, Semantic Kernel, C#, Azure, Azure AI, Service-Now, Kubernetes, Docker
+Experience:RAG implementations, GenAI Agentic Frameworks, Fast API, scalable REST APIs, LLM prompt Engineering, performance tuning
+Interpersonal Skills:Highly adaptable, Quick Learner, Independent Starter, good stakeholder management skills.
+
+
+AWARDS
+* Won the Rising Star award in the architecture pillar of SLB for the year 2022-23
+* Check https://www.linkedin.com/in/abhinav-duvvuri/details/recommendations/ for recommendations.
+
+
+RELATED PROJECTS AND RESEARCH PAPERS
+
+Conversational AI Co-Pilot, SLB
+July 2024 - Present (Ongoing)
+* Developed an enterprise-level AI copilot, facilitating seamless interaction and management of digital portfolios.
+* Created reusable AI libraries to streamline AI solution implementation for other teams.
+* Utilized the agentic framework for precise query classification and contextual understanding, improving user experience and decreasing support workload through intelligent multi-prompts and a RAG-based approach.
+* Leveraged semantic kernel SDK for AI orchestration, enabling MongoDB database queries and API calls for real-time data summarization and retrieval.
+
+
+Ensemble Based Predictive Model for Streaming Data
+* Evaluated the performance of various ensemble regression models on a 34-day solar power generation dataset from a solar power plant in India, using Python, Sci-kit learn, pandas, NumPy, and matplotlib. 
+* The research utilized adaptive window sizing (ADWIN) and rolling variance-based training to minimize MAPE error.
+* The findings were presented at the 12th International Conference on Computing and Networking Technology (ICCNT) and published in  IEEE: https://ieeexplore.ieee.org/document/9579947.
+
+github link: https://github.com/abhinavdv/

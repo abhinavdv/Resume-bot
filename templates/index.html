@@ -256,10 +256,27 @@
         }
 
         .questions-header {
+            margin-bottom: 15px;
+            padding-right: 10px;
+        }
+
+        .header-top-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+        }
+
+        .questions-header h3 {
+            font-size: 1.2em;
+            margin: 0;
         }
 
         .question-chips {
@@ -313,35 +330,69 @@
             animation: chipAppear 0.3s ease forwards;
         }
 
+        /* Updated refresh button styles */
         .refresh-button {
             background: none;
-            border: none;
+            border: 2px solid var(--primary-color);
             color: var(--primary-color);
             cursor: pointer;
-            padding: 8px 12px;
-            border-radius: 50%;
+            padding: 8px 16px;
+            border-radius: 8px;
+            height: 40px;
+            min-width: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             transition: all 0.3s ease;
-            min-width: 24px;
-            height: 24px;
-            white-space: nowrap;
-            overflow: hidden;
+            font-size: 1em;
+            font-weight: 500;
         }
 
         .refresh-button:hover {
-            background-color: rgba(33, 150, 243, 0.1);
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .refresh-button:active {
+            transform: translateY(1px);
         }
 
         .refresh-icon {
             font-size: 1.2em;
+            display: inline-block;
         }
 
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        .refresh-button::after {
+            content: "Refresh";
         }
 
-        .refresh-button.spinning .refresh-icon {
-            animation: spin 1s linear infinite;
+        .refresh-button.loading::after {
+            content: "Loading...";
+        }
+
+        /* Loading text container */
+        .loading-text-container {
+            min-height: 24px;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .loading-text {
+            display: none;
+            font-size: 0.9em;
+            color: var(--text-color);
+            opacity: 0.8;
+            pointer-events: none;
+            text-align: right;
+            padding: 4px 8px;
+            max-width: 300px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            animation: fadeInOut 3s linear infinite;
         }
 
         /* Layout styles */
@@ -683,10 +734,17 @@
         <div class="sidebar" id="sidebar">
             <div class="suggested-questions">
                 <div class="questions-header">
-                    <h3>Suggested Questions</h3>
-                    <button onclick="refreshQuestions()" class="refresh-button">
-                        <span class="refresh-icon">↻</span>
-                    </button>
+                    <div class="header-content">
+                        <div class="header-top-row">
+                            <h3>Suggested Questions</h3>
+                            <button onclick="refreshQuestions()" class="refresh-button" title="Refresh questions">
+                                <span class="refresh-icon">↻</span>
+                            </button>
+                        </div>
+                        <div class="loading-text-container">
+                            <div class="loading-text"></div>
+                        </div>
+                    </div>
                 </div>
                 <div class="question-chips">
                     {% for question in suggested_questions %}
@@ -873,7 +931,6 @@
             }
         });
 
-        // Add witty loading messages array
         const loadingMessages = [
             "Mining through experiences 🚀",
             "Loading leadership moments...",
@@ -887,66 +944,69 @@
             "Brewing some Java ☕"
         ];
 
-        // Fisher-Yates shuffle algorithm
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-
         async function refreshQuestions() {
-            const sidebar = document.getElementById('sidebar');
-            if (sidebar.classList.contains('collapsed')) {
-                sidebar.classList.remove('collapsed');
-                localStorage.setItem('sidebarCollapsed', 'false');
-            }
-            
             const refreshButton = document.querySelector('.refresh-button');
+            const loadingText = document.querySelector('.loading-text');
             const questionChips = document.querySelector('.question-chips');
             
-            // Shuffle messages at the start of refresh
-            const shuffledMessages = shuffleArray([...loadingMessages]);
-            let messageIndex = 0;
+            // Add loading state
+            refreshButton.classList.add('loading');
             
-            // Initial message
-            refreshButton.innerHTML = `<span class="refresh-icon spinning">${shuffledMessages[messageIndex]}</span>`;
+            // Clear existing questions with fade out
+            const existingChips = questionChips.children;
+            Array.from(existingChips).forEach((chip, index) => {
+                setTimeout(() => {
+                    chip.style.opacity = '0';
+                    chip.style.transform = 'translateY(10px)';
+                }, index * 100);
+            });
+
+            // Wait for fade out animation
+            await new Promise(resolve => setTimeout(resolve, existingChips.length * 100 + 300));
+            
+            // Clear chips and show loading text
+            questionChips.innerHTML = '';
+            let messageIndex = 0;
+            loadingText.textContent = loadingMessages[messageIndex];
+            loadingText.style.display = 'block';
             
             const messageInterval = setInterval(() => {
-                messageIndex = (messageIndex + 1) % shuffledMessages.length;
-                // Create new element for smooth transition
-                const newMessage = document.createElement('span');
-                newMessage.className = 'refresh-icon spinning';
-                newMessage.textContent = shuffledMessages[messageIndex];
-                
-                // Replace old message
-                refreshButton.innerHTML = '';
-                refreshButton.appendChild(newMessage);
-            }, 3000);
+                messageIndex = (messageIndex + 1) % loadingMessages.length;
+                loadingText.textContent = loadingMessages[messageIndex];
+            }, 2000);
             
             try {
                 const response = await fetch('/refresh-questions');
                 const data = await response.json();
                 
-                questionChips.innerHTML = '';
-                
+                // Add new questions with staggered animation
                 data.questions.forEach((question, index) => {
                     setTimeout(() => {
                         const chip = document.createElement('div');
                         chip.className = 'question-chip';
+                        chip.style.opacity = '0';
+                        chip.style.transform = 'translateY(10px)';
                         chip.onclick = () => askSuggestedQuestion(question);
                         chip.textContent = question;
                         questionChips.appendChild(chip);
-                    }, index * 100);
+                        
+                        // Trigger fade in
+                        setTimeout(() => {
+                            chip.style.opacity = '1';
+                            chip.style.transform = 'translateY(0)';
+                        }, 50);
+                    }, index * 200);
                 });
             } catch (error) {
                 console.error('Error refreshing questions:', error);
             } finally {
-                clearInterval(messageInterval);
+                // Clear loading state after minimum duration
                 setTimeout(() => {
-                    refreshButton.innerHTML = '<span class="refresh-icon">↻</span>';
-                }, 1000);
+                    clearInterval(messageInterval);
+                    loadingText.style.display = 'none';
+                    loadingText.textContent = '';
+                    refreshButton.classList.remove('loading');
+                }, 2000);
             }
         }
 

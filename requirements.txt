@@ -1,7 +1,4 @@
-pysqlite3 == 3.35.0
 Flask==2.2.2
-gunicorn
+gunicorn==19.3.0
 Werkzeug==2.2.2
-chroma
-chromadb
-openai
+google-cloud-aiplatform
